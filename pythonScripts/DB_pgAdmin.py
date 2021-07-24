@@ -1,4 +1,5 @@
 import psycopg2
+import csv
 
 
 def get_config_data(data):
@@ -67,12 +68,17 @@ def create_tables(conn):
               f"\nPlease make sure sql tables are recreated")
 
 
-def populate_tables():
+def populate_tables(conn):
     """
     This function will store all the
     data from the txt files inside the tables
     :return:
     """
-
-
-
+    with open("datasets/name.basics.txt", newline='') as file:
+        line_reader = csv.reader(file, delimiter='\t')
+        for line in line_reader:
+            insert_sql = f'INSERT INTO public.imdb_name_basic("nconst", "primaryName", "birthYear", "deathYear", ' \
+                         '"primaryProfession", "knownForTitles")' \
+                         f'VALUES ({line[0]}, {line[1]}, {line[2]},' \
+                         f' {line[3]}, {line[4]}, {line[5]}); '
+            conn.execute(insert_sql)
