@@ -37,6 +37,7 @@ def connect_to_db(db_host, db_database,
             user=f"{db_user}",
             port=f"{db_port}",
             password=f"{db_pass}")
+        conn.autocommit = True
 
         cursor = conn.cursor()
     except (Exception, psycopg2.DatabaseError) as error:
@@ -49,10 +50,29 @@ def connect_to_db(db_host, db_database,
     return cursor
 
 
-def check_db_tables():
+def create_tables(conn):
     """
-    This function will check that the DB
-    is setup and contain datasets.
-    If not it will return false value
+    This function will create the tables
+    that are required to stored the imdb data
+    """
+    try:
+        conn.execute(open("sql_code/createTable_name_basic.sql", "r").read())
+        conn.execute(open("sql_code/createTable_principals.sql", "r").read())
+        conn.execute(open("sql_code/createTable_ratings.sql", "r").read())
+        conn.execute(open("sql_code/createTable_title_basic.sql", "r").read())
+        conn.execute(open("sql_code/createTable_title_crew.sql", "r").read())
+        conn.execute(open("sql_code/createTable_title_episode.sql", "r").read())
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(f"There was an issue: {error}"
+              f"\nPlease make sure sql tables are recreated")
+
+
+def populate_tables():
+    """
+    This function will store all the
+    data from the txt files inside the tables
     :return:
     """
+
+
+
