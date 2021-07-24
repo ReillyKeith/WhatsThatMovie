@@ -1,0 +1,18 @@
+{
+  "Dataset_IMDb_URL": "https://datasets.imdbws.com/",
+  "Datasets": {
+  "actor_names": "name.basics.tsv.gz",
+  "movie_titles": "title.basics.tsv.gz",
+  "episode_titles": "title.episode.tsv.gz",
+  "crew_names": "title.crew.tsv.gz",
+  "principals_names": "title.principals.tsv.gz",
+  "ratings": "title.ratings.tsv.gz"
+  },
+  "pgAdmin": {
+    "pgAdmin_username": "postgres",
+    "pgAdmin_database": "postgres",
+    "pgAdmin_host": "localhost",
+    "pgAdmin_port": "5433",
+    "pgAdmin_pass": "All4p1e1"
+  }
+}
