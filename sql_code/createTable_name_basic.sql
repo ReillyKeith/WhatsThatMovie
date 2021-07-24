@@ -1,8 +1,10 @@
+DROP TABLE IF EXISTS public.imdb_name_basic;
+
 CREATE TABLE public.imdb_name_basic
 (
     nconst varchar,
-    "birthYear" int,
-    "deathYear" int,
+    "birthYear" varchar,
+    "deathYear" varchar,
     "primaryName" varchar,
     "primaryProfession" varchar,
     "knownForTitles" varchar,
