@@ -77,8 +77,9 @@ def populate_tables(conn):
     with open("datasets/name.basics.txt", newline='') as file:
         line_reader = csv.reader(file, delimiter='\t')
         for line in line_reader:
-            insert_sql = f'INSERT INTO public.imdb_name_basic("nconst", "primaryName", "birthYear", "deathYear", ' \
+            primary_name = line[1].replace("'", ' ')
+            insert_sql = 'INSERT INTO public.imdb_name_basic("nconst", "primaryName", "birthYear", "deathYear", ' \
                          '"primaryProfession", "knownForTitles")' \
-                         f'VALUES ({line[0]}, {line[1]}, {line[2]},' \
-                         f' {line[3]}, {line[4]}, {line[5]}); '
+                         f"VALUES ('{line[0].strip()}', '{primary_name}', '{line[2].strip()}'," \
+                         f" '{line[3].strip()}', '{line[4].strip()}', '{line[5].strip()}'); "
             conn.execute(insert_sql)
