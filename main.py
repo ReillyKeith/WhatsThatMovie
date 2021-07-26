@@ -7,7 +7,7 @@ class main:
         with open('CONFIG.json') as config_file:
             self.data = json.load(config_file)
 
-    def db_connection(self):
+    def db_setup(self):
         """
         This function will setup the DB
         that will store all the data that is needed
@@ -19,7 +19,16 @@ class main:
         conn = DB_pgAdmin.connect_to_db(db_host, db_database,
                                         db_user, db_port, db_pass)
 
+        DB_pgAdmin.create_tables(conn)
 
+    def testStuff(self):
+        db_host, db_database, db_user, db_port, db_pass = \
+            DB_pgAdmin.get_config_data(self.data)
+
+        conn = DB_pgAdmin.connect_to_db(db_host, db_database,
+                                        db_user, db_port, db_pass)
+
+        DB_pgAdmin.populate_tables(conn)
 
     def reset_imdb_datasets(self):
         """
@@ -40,5 +49,6 @@ if __name__ == '__main__':
     Start the main program
     """
     WhatsThatMovie = main()
-    #WhatsThatMovie.reset_imdb_datasets()
-    WhatsThatMovie.db_connection()
+    # WhatsThatMovie.reset_imdb_datasets()
+    WhatsThatMovie.db_setup()
+    WhatsThatMovie.testStuff()

@@ -83,3 +83,15 @@ def populate_tables(conn):
                          f"VALUES ('{line[0].strip()}', '{primary_name}', '{line[2].strip()}'," \
                          f" '{line[3].strip()}', '{line[4].strip()}', '{line[5].strip()}'); "
             conn.execute(insert_sql)
+
+    with open("datasets/title.basics.txt", newline='') as file:
+        line_reader = csv.reader(file, delimiter='\t')
+        for line in line_reader:
+            insert_sql = 'INSERT INTO public.imdb_title_basic(tconst, "titleType", "primaryTitle", ' \
+                         '"originalTitle", "isAdult", "startYear", "endYear", "runtimeMinutes", genres) ' \
+                         f"VALUES ('{line[0].strip()}', '{line[1].strip()}', " \
+                         f"'{line[2].strip()}','{line[3].strip()}', " \
+                         f"'{line[4].strip()}', '{line[5].strip()}) " \
+                         f"'{line[6].strip()}', '{line[7].strip()}) " \
+                         f"'{line[8].strip()}'); "
+            conn.execute(insert_sql)
